@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   iconHolder: {
     width: "15%",
-    height: 45,
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
     borderTopLeftRadius: 8,

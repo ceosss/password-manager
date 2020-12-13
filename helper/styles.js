@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "./colors";
 export default StyleSheet.create({
   headerText: {
     fontSize: 32,
@@ -7,5 +8,9 @@ export default StyleSheet.create({
   normalText: {
     fontSize: 18,
     fontFamily: "thin",
+  },
+  link: {
+    color: colors.purple,
+    fontFamily: "bold",
   },
 });
