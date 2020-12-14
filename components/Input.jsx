@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import {
   MaterialCommunityIcons,
   FontAwesome,
-  Ionicons,
+  FontAwesome5,
   Entypo,
 } from "@expo/vector-icons";
 import colors from "../helper/colors";
@@ -21,10 +21,14 @@ const Input = ({ type, text, setText }) => {
         placeholder={type.capitalize()}
         onChangeText={(text) => setText(text)}
         value={text}
-        secureTextEntry={type === "password" && !showPW}
+        secureTextEntry={
+          (type === "password" || type === "Confirm Password") && !showPW
+        }
         style={styles.inputStyle}
+        keyboardType={type === "phone" ? "number-pad" : null}
+        maxLength={type === "phone" ? 10 : 30}
       />
-      {type === "password" ? (
+      {type === "password" || type === "Confirm Password" ? (
         <TouchableOpacity
           style={{ position: "absolute", right: 8 }}
           onPress={() => togglePW(!showPW)}
@@ -94,14 +98,23 @@ const getIcon = (type) => {
       );
     case "phone":
       return (
-        <Ionicons
-          name="phone-portrait-outline"
+        <FontAwesome5
+          name="mobile"
           size={24}
           color={colors.gray}
           style={styles.inputIcon}
         />
       );
     case "password":
+      return (
+        <Entypo
+          name="key"
+          size={24}
+          color={colors.gray}
+          style={styles.inputIcon}
+        />
+      );
+    case "Confirm Password":
       return (
         <Entypo
           name="key"

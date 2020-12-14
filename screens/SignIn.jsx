@@ -15,21 +15,26 @@ import colors from "../helper/colors";
 import global from "../helper/styles";
 import Input from "../components/Input";
 import Toast from "react-native-simple-toast";
-import firebase from "../firebase";
+import { auth } from "../helper/firebase";
+import { validatePassword, ValidateEmail } from "../helper/validations";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const db = firebase.firestore();
+  const validate = () => {
+    if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
+    if (!validatePassword(password))
+      return Toast.show(
+        "Password must contain at least 8 characters, at least one number and both lower and uppercase letters and special characters, Try Again."
+      );
+    return 1;
+  };
   const handleSignIn = () => {
-    db.collection("users")
-      .doc(email)
-      .set({
-        email,
-        password,
-      })
-      .then(() => Toast.show("Sign in successful"))
-      .catch((error) => Toast.show(error));
+    if (validate() !== 1) return;
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => Toast.show("Sign in Successful"))
+      .catch((error) => Toast.show(error.message));
   };
   return (
     <KeyboardAvoidingView
@@ -91,33 +96,10 @@ const styles = StyleSheet.create({
     width: "92%",
     // height: "80%",
     borderRadius: 10,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#fff",
     elevation: 5,
     padding: 15,
     paddingVertical: 25,
-  },
-  inputHolder: { flexDirection: "row", alignItems: "center" },
-  iconHolder: {
-    width: "15%",
-    height: 45,
-    borderWidth: 1,
-    borderRightWidth: 0,
-    borderColor: colors.gray,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: -3,
-  },
-  inputStyle: {
-    height: 45,
-    width: "86%",
-    borderWidth: 1,
-    borderColor: colors.gray,
-    marginVertical: 8,
-    paddingLeft: 10,
-    borderRadius: 5,
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
   },
   forgot: {
     width: "100%",
