@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Button from "../components/Button";
-import SocialButton from "../components/SocialButton";
 import colors from "../helper/colors";
 import global from "../helper/styles";
 import Input from "../components/Input";
@@ -63,7 +62,7 @@ const SignIn = ({ navigation }) => {
           })
           .then(() => {
             Toast.show("Sign up Successful");
-            setLoading(false);
+            // setLoading(false);
           })
           .catch((error) => {
             Toast.show(error.message);
