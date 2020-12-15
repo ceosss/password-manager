@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Button from "../components/Button";
@@ -17,10 +18,12 @@ import Input from "../components/Input";
 import Toast from "react-native-simple-toast";
 import { auth } from "../helper/firebase";
 import { validatePassword, ValidateEmail } from "../helper/validations";
+import { color } from "react-native-reanimated";
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const validate = () => {
     if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
     if (!validatePassword(password))
@@ -31,10 +34,17 @@ const SignIn = () => {
   };
   const handleSignIn = () => {
     if (validate() !== 1) return;
+    setLoading(true);
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => Toast.show("Sign in Successful"))
-      .catch((error) => Toast.show(error.message));
+      .then(() => {
+        Toast.show("Sign in Successful");
+        setLoading(false);
+      })
+      .catch((error) => {
+        Toast.show(error.message);
+        setLoading(false);
+      });
   };
   return (
     <KeyboardAvoidingView
@@ -57,7 +67,15 @@ const SignIn = () => {
         <TouchableOpacity style={styles.forgot}>
           <Text style={styles.forgotText}>Forgot Password?</Text>
         </TouchableOpacity>
-        <Button onPress={handleSignIn}>SIGN IN</Button>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.purple}
+            style={{ padding: 13 }}
+          />
+        ) : (
+          <Button onPress={handleSignIn}>SIGN IN</Button>
+        )}
         <View style={styles.separate}>
           <View style={styles.line} />
           <Text style={styles.separateText}>OR</Text>
@@ -70,7 +88,7 @@ const SignIn = () => {
         <Text style={{ color: colors.darkGray, fontFamily: "light" }}>
           Don't you have an account?
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={global.link}> Sign up Now!</Text>
         </TouchableOpacity>
       </View>

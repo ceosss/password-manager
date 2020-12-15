@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Button from "../components/Button";
@@ -23,12 +24,13 @@ import {
   validatePhone,
 } from "../helper/validations";
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const validate = () => {
     if (!validateName(name))
       return Toast.show("Name must contain atleast 6 characters");
@@ -45,6 +47,7 @@ const SignIn = () => {
   };
   const handleSignIn = () => {
     if (validate() !== 1) return;
+    setLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -56,11 +59,21 @@ const SignIn = () => {
             email,
             phone,
             password,
+            createdAt: new Date(),
           })
-          .then(() => Toast.show("Sign up Successful"))
-          .catch((error) => Toast.show(error.message));
+          .then(() => {
+            Toast.show("Sign up Successful");
+            setLoading(false);
+          })
+          .catch((error) => {
+            Toast.show(error.message);
+            setLoading(false);
+          });
       })
-      .catch((error) => Toast.show(error.message));
+      .catch((error) => {
+        Toast.show(error.message);
+        setLoading(false);
+      });
   };
   return (
     <KeyboardAvoidingView
@@ -87,13 +100,21 @@ const SignIn = () => {
           text={confirmPassword}
           setText={setConfirmPassword}
         />
-        <Button onPress={handleSignIn}>SIGN IN</Button>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.purple}
+            style={{ padding: 13 }}
+          />
+        ) : (
+          <Button onPress={handleSignIn}>SIGN UP</Button>
+        )}
       </View>
       <View style={styles.signIn}>
         <Text style={{ color: colors.darkGray, fontFamily: "light" }}>
           Already have an account?
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
           <Text style={global.link}> Sign in Now!</Text>
         </TouchableOpacity>
       </View>
