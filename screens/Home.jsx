@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import Toast from "react-native-simple-toast";
+import { StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Vault from "../components/Vault";
@@ -31,7 +31,7 @@ const Home = () => {
               <MaterialCommunityIcons
                 name="locker-multiple"
                 size={20}
-                color={focused ? "#fff" : colors.gray}
+                color={focused ? "#fff" : colors.neutralGray}
               />
             ),
           }}
@@ -44,7 +44,7 @@ const Home = () => {
               <Fontisto
                 name="equalizer"
                 size={18}
-                color={focused ? "#fff" : colors.gray}
+                color={focused ? "#fff" : colors.neutralGray}
               />
             ),
           }}
@@ -57,12 +57,13 @@ const Home = () => {
               <FontAwesome
                 name="user"
                 size={22}
-                color={focused ? "#fff" : colors.gray}
+                color={focused ? "#fff" : colors.neutralGray}
               />
             ),
           }}
         />
       </Tab.Navigator>
+      <StatusBar style="auto" />
     </NavigationContainer>
   );
 };

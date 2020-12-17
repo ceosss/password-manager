@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { AppLoading } from "expo";
 import React from "react";
 import {
@@ -7,6 +6,7 @@ import {
   Roboto_300Light,
   Roboto_400Regular,
   Roboto_500Medium,
+  Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
 import Main from "./Main";
@@ -17,6 +17,7 @@ export default function App() {
     light: Roboto_300Light,
     regular: Roboto_400Regular,
     bold: Roboto_500Medium,
+    bolder: Roboto_700Bold,
   });
   if (!fontsLoaded) return <AppLoading />;
   return <Main />;
