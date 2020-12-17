@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Toast from "react-native-simple-toast";
-import { auth } from "../helper/firebase";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Vault from "../components/Vault";
@@ -16,12 +15,7 @@ import colors from "../helper/colors";
 
 const Home = () => {
   const Tab = createMaterialBottomTabNavigator();
-  const signOut = () => {
-    auth
-      .signOut()
-      .then(() => Toast.show("Log out"))
-      .catch((error) => Toast.show(error.message));
-  };
+
   return (
     <NavigationContainer>
       <Tab.Navigator

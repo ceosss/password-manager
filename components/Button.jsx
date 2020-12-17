@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../helper/colors";
+import Ripple from "react-native-material-ripple";
 
 const Button = ({ children, onPress }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <Ripple style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
-    </TouchableOpacity>
+    </Ripple>
   );
 };
 

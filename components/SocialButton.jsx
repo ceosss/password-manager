@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Ripple from "react-native-material-ripple";
 import { Ionicons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 
 const SocialButton = ({ type, onPress }) => {
   return (
-    <TouchableOpacity
+    <Ripple
       style={[
         styles.button,
         { backgroundColor: type === "google" ? "#E85B43" : "#5171AF" },
@@ -29,7 +30,7 @@ const SocialButton = ({ type, onPress }) => {
           {type === "google" ? "LOGIN WITH GOOGLE" : "LOGIN WITH FACEBOOK"}
         </Text>
       </View>
-    </TouchableOpacity>
+    </Ripple>
   );
 };
 
