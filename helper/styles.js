@@ -9,6 +9,13 @@ export default StyleSheet.create({
     fontSize: 18,
     fontFamily: "thin",
   },
+  smallText: {
+    fontSize: 14,
+    color: colors.darkGray,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    fontFamily: "bold",
+  },
   link: {
     color: colors.purple,
     fontFamily: "bold",
