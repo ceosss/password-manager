@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthNavigation from "./navigation/AuthNavigator";
 import Home from "./screens/Home";
 import { auth } from "./helper/firebase";
+import OnBoarding from "./screens/OnBoarding";
 
 const Main = () => {
   const [curUser, setCurUser] = useState(null);
@@ -12,6 +13,7 @@ const Main = () => {
     });
   }, []);
   if (curUser) return <Home />;
+  <OnBoarding />;
   return <AuthNavigation />;
 };
 
