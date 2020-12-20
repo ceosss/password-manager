@@ -16,7 +16,7 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     height: 45,
-    // width: "100%",
+    width: "100%",
     marginVertical: 8,
     borderRadius: 8,
     backgroundColor: colors.purple,

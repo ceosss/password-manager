@@ -5,6 +5,6 @@ export const ValidateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 export const validatePassword = (password) => {
-  const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+  const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,32}$/;
   return re.test(password);
 };

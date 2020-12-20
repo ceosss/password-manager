@@ -18,6 +18,7 @@ import Input from "../components/Input";
 import Toast from "react-native-simple-toast";
 import { auth } from "../helper/firebase";
 import { validatePassword, ValidateEmail } from "../helper/validations";
+import { storeData } from "../helper/getSetEmail";
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ const SignIn = ({ navigation }) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        Toast.show("Sign in Successful");
+        storeData(email).then(() => Toast.show("Sign in Successful"));
         // setLoading(false);
       })
       .catch((error) => {

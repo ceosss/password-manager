@@ -123,5 +123,14 @@ const getIcon = (type) => {
           style={styles.inputIcon}
         />
       );
+    case "website":
+      return (
+        <MaterialCommunityIcons
+          name="web"
+          size={24}
+          color={colors.gray}
+          style={styles.inputIcon}
+        />
+      );
   }
 };
