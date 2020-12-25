@@ -15,13 +15,15 @@ const AddPassword = ({ refRBSheet }) => {
   const handleSubmit = () => {
     if (website.length < 3)
       return Toast.show(
-        "Website must be atleast 3 characters long., Try Again."
+        "Website must be at least 3 characters long., Try Again."
       );
     if (email.length < 3)
-      return Toast.show("Email must be atleast 3 characters long., Try Again.");
+      return Toast.show(
+        "Email must be at least 3 characters long., Try Again."
+      );
     if (password.length < 3)
       return Toast.show(
-        "Password must be atleast 3 characters long., Try Again."
+        "Password must be at least 3 characters long., Try Again."
       );
 
     retrieveEmail().then((userEmail) =>
@@ -34,14 +36,12 @@ const AddPassword = ({ refRBSheet }) => {
           email,
           password,
         })
-        // .update({
-        //   savedPassswords: firebase.firestore.FieldValue.arrayUnion({
-        //     website,
-        //     email,
-        //     password,
-        //   }),
-        // })
-        .then(() => Toast.show("Done!"))
+        .then(() => {
+          Toast.show("Done!");
+          setWebsite("");
+          setEmail("");
+          setPassword("");
+        })
         .catch((error) => Toast.show(error.message))
     );
   };
