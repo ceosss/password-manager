@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,21 +11,42 @@ import colors from "../helper/colors";
 import Head from "./Head";
 import Password from "./Password";
 import AddPassword from "./AddPassword";
+import { firestore } from "../helper/firebase";
+import { retrieveEmail } from "../helper/getSetEmail";
 
 const Vault = () => {
   const refRBSheet = useRef();
+  const [vaultData, setVaultData] = useState(null);
+  useEffect(() => {
+    retrieveEmail().then((userEmail) => {
+      console.log(userEmail);
+      firestore
+        .collection("users")
+        .doc(userEmail)
+        .collection("savedPasswords")
+        .onSnapshot((data) => {
+          let array = [];
+          data.docs.map((doc) => {
+            array.push({ id: doc.id, ...doc.data() });
+          });
+          setVaultData(array);
+        });
+    });
+  }, []);
   return (
     <View style={styles.vault}>
       <Head />
       <View style={styles.content}>
         <Text style={styles.saved}>SAVED PASSWORDS</Text>
         <View style={styles.password}>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => <Password data={item} />}
-            keyExtractor={(item, index) => "key" + index}
-            showsVerticalScrollIndicator={false}
-          />
+          {vaultData && (
+            <FlatList
+              data={vaultData}
+              renderItem={({ item }) => <Password data={item} />}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
         </View>
       </View>
       <TouchableOpacity
@@ -71,82 +92,82 @@ const styles = StyleSheet.create({
 export const data = [
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234123",
+    password: "Afnet@1234123",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234@2asdas",
+    password: "Afnet@1234@2asdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "@124HdsdI#G",
+    password: "@124HdsdI#G",
   },
   {
     website: "Twitter",
-    hashedPassword: "abcdefghasdas",
+    password: "abcdefghasdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234123",
+    password: "Afnet@1234123",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234@2asdas",
+    password: "Afnet@1234@2asdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "@124HdsdI#G",
+    password: "@124HdsdI#G",
   },
   {
     website: "Twitter",
-    hashedPassword: "abcdefghasdas",
+    password: "abcdefghasdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234123",
+    password: "Afnet@1234123",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234@2asdas",
+    password: "Afnet@1234@2asdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "@124HdsdI#G",
+    password: "@124HdsdI#G",
   },
   {
     website: "Twitter",
-    hashedPassword: "abcdefghasdas",
+    password: "abcdefghasdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234123",
+    password: "Afnet@1234123",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234@2asdas",
+    password: "Afnet@1234@2asdas",
   },
   {
     website: "Facebook",
-    hashedPassword: "@124HdsdI#G",
+    password: "@124HdsdI#G",
   },
   {
     website: "Twitter",
-    hashedPassword: "abcdefghasdas",
+    password: "abcdefghasdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234123",
+    password: "Afnet@1234123",
   },
   {
     website: "Twitter",
-    hashedPassword: "Afnet@1234@2asdas",
+    password: "Afnet@1234@2asdas",
   },
   {
     website: "Twitter",
-    hashedPassword: "@124HdsdI#G",
+    password: "@124HdsdI#G",
   },
   {
     website: "Facebook",
-    hashedPassword: "abcdefghasdas",
+    password: "abcdefghasdas",
   },
 ];

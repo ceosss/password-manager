@@ -6,7 +6,7 @@ import { firestore } from "../helper/firebase";
 import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
-import { getData } from "../helper/getSetEmail";
+import { retrieveEmail } from "../helper/getSetEmail";
 
 const AddPassword = ({ refRBSheet }) => {
   const [website, setWebsite] = useState("");
@@ -24,11 +24,11 @@ const AddPassword = ({ refRBSheet }) => {
         "Password must be atleast 3 characters long., Try Again."
       );
 
-    getData().then((userEmail) =>
+    retrieveEmail().then((userEmail) =>
       firestore
         .collection("users")
         .doc(userEmail)
-        .collection("savedPassswords")
+        .collection("savedPasswords")
         .add({
           website,
           email,

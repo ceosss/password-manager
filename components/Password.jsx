@@ -4,26 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import Indicator from "./Indicator";
 import { validatePassword } from "../helper/validations";
 import colors from "../helper/colors";
+import { passwordStrength } from "../helper/passwordStrength";
 
 const Password = ({ data }) => {
-  const passwordHealth = () => {
-    if (
-      data.hashedPassword.length > 12 &&
-      validatePassword(data.hashedPassword)
-    )
-      return "strong";
-    if (
-      data.hashedPassword.length >= 8 &&
-      data.hashedPassword.length <= 12 &&
-      validatePassword(data.hashedPassword)
-    )
-      return "medium";
-    else return "weak";
-  };
   return (
     <View style={styles.password}>
       <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-        <Indicator type={passwordHealth()} />
+        <Indicator type={passwordStrength(data.password)} />
         <Text style={styles.website}>{data.website}</Text>
       </View>
       <TouchableOpacity>
