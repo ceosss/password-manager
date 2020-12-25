@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import colors from "../helper/colors";
 import Indicator from "./Indicator";
+import { passwordAnalytics } from "../helper/passwordAnalytics";
 
-const Head = () => {
+const Head = ({ data, userEmail }) => {
+  const [strong, setStrong] = useState(0);
+  const [medium, setMedium] = useState(0);
+  const [weak, setWeak] = useState(0);
+  useEffect(() => {
+    const analytics = passwordAnalytics(data);
+    console.log(analytics);
+    setStrong(analytics.strong);
+    setMedium(analytics.medium);
+    setWeak(analytics.weak);
+  }, [data]);
   return (
     <View style={styles.head}>
       <View style={styles.left}>
-        <Text style={styles.bigText}>{data.total}</Text>
+        <Text style={styles.bigText}>{data.length}</Text>
         <Text style={styles.smallText}>Passwords</Text>
       </View>
       <View style={styles.right}>
-        <Text style={styles.username}>Hi {data.username}!</Text>
+        <Text style={styles.username}>Hi {userEmail}!</Text>
         <View style={styles.analytics}>
           <Indicator type="strong" />
-          <Text style={styles.bold}>{data.strong}</Text>
+          <Text style={styles.bold}>{strong}</Text>
           <Text style={styles.analyticsText}> Strong Passwords</Text>
         </View>
         <View style={styles.analytics}>
           <Indicator type="medium" />
-          <Text style={styles.bold}>{data.medium}</Text>
+          <Text style={styles.bold}>{medium}</Text>
           <Text style={styles.analyticsText}> Medium Passwords</Text>
         </View>
         <View style={styles.analytics}>
           <Indicator type="weak" />
-          <Text style={styles.bold}>{data.weak}</Text>
+          <Text style={styles.bold}>{weak}</Text>
           <Text style={styles.analyticsText}> Weak Passwords</Text>
         </View>
       </View>

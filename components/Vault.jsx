@@ -17,9 +17,10 @@ import { retrieveEmail } from "../helper/getSetEmail";
 const Vault = () => {
   const refRBSheet = useRef();
   const [vaultData, setVaultData] = useState(null);
+  const [userEmail, setUserEmail] = useState("");
   useEffect(() => {
     retrieveEmail().then((userEmail) => {
-      console.log(userEmail);
+      setUserEmail(userEmail);
       firestore
         .collection("users")
         .doc(userEmail)
@@ -35,7 +36,7 @@ const Vault = () => {
   }, []);
   return (
     <View style={styles.vault}>
-      <Head />
+      <Head data={vaultData} userEmail={userEmail} />
       <View style={styles.content}>
         <Text style={styles.saved}>SAVED PASSWORDS</Text>
         <View style={styles.password}>
