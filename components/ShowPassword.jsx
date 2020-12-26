@@ -1,5 +1,7 @@
-import React from "react";
-import { StyleSheet, Text, Clipboard } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, ActivityIndicator, Clipboard } from "react-native";
+import { firestore } from "../helper/firebase";
+import { retrieveEmail } from "../helper/getSetEmail";
 import Toast from "react-native-simple-toast";
 import RBSheet from "react-native-raw-bottom-sheet";
 import colors from "../helper/colors";
@@ -7,9 +9,29 @@ import Button from "./Button";
 import Input from "./Input";
 
 const ShowPassword = ({ refRBSheet, data }) => {
+  const [loading, setLoading] = useState(false);
   const copyToClipboard = () => {
     Clipboard.setString(data.password);
     Toast.show("Copied!");
+  };
+  const deletePassword = () => {
+    setLoading(true);
+    retrieveEmail().then((userEmail) => {
+      firestore
+        .collection("users")
+        .doc(userEmail)
+        .collection("savedPasswords")
+        .doc(data.id)
+        .delete()
+        .then(() => {
+          Toast.show("Deleted!");
+          setLoading(false);
+        })
+        .catch((error) => {
+          Toast.show(error.message);
+          setLoading(false);
+        });
+    });
   };
   return (
     <RBSheet
@@ -31,16 +53,15 @@ const ShowPassword = ({ refRBSheet, data }) => {
       <Input type="email" text={data.email} disabled={true} />
       <Input type="password" text={data.password} disabled={true} />
       <Button onPress={copyToClipboard}>Copy Password</Button>
-      <Button>Delete Password</Button>
-      {/* {loading ? (
+      {loading ? (
         <ActivityIndicator
           size="large"
           color={colors.purple}
           style={{ padding: 13 }}
         />
       ) : (
-        <Button onPress={handleSubmit}>Add</Button>
-      )} */}
+        <Button onPress={deletePassword}>Delete Password</Button>
+      )}
     </RBSheet>
   );
 };
