@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, ActivityIndicator } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from "react-native-simple-toast";
-import { firestore } from "../helper/firebase";
+import firebase, { firestore } from "../helper/firebase";
 import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
@@ -37,17 +37,19 @@ const AddPassword = ({ refRBSheet }) => {
           website,
           email,
           password,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
           Toast.show("Done!");
-          refRBSheet.current.close();
           setLoading(false);
+          refRBSheet.current.close();
           setWebsite("");
           setEmail("");
           setPassword("");
         })
         .catch((error) => {
           setLoading(false);
+          console.log(error);
           Toast.show(error.message);
         })
     );

@@ -25,6 +25,7 @@ const Vault = () => {
         .collection("users")
         .doc(userEmail)
         .collection("savedPasswords")
+        .orderBy("createdAt", "desc")
         .onSnapshot((data) => {
           let array = [];
           data.docs.map((doc) => {
