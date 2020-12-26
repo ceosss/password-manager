@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Switch } from "react-native";
+import { StyleSheet, Text, View, Switch, Clipboard } from "react-native";
 import Slider from "@react-native-community/slider";
-import Clipboard from "@react-native-community/clipboard";
 import Toast from "react-native-simple-toast";
 import Ripple from "react-native-material-ripple";
 import Button from "../components/Button";
@@ -19,7 +18,7 @@ const Tools = () => {
     handleClick();
   }, []);
   const copyToClipboard = () => {
-    Clipboard.setString("password");
+    Clipboard.setString(password);
     Toast.show("Copied!");
   };
   const handleClick = () => {
@@ -35,7 +34,7 @@ const Tools = () => {
       <View style={styles.content}>
         <View style={styles.generated}>
           <Text style={styles.smallText}>Generated Password</Text>
-          <Ripple style={styles.preview}>
+          <Ripple style={styles.preview} onPress={copyToClipboard}>
             <Text style={styles.previewText}>{password}</Text>
           </Ripple>
         </View>
