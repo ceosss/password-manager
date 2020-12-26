@@ -8,7 +8,7 @@ import {
 } from "@expo/vector-icons";
 import colors from "../helper/colors";
 
-const Input = ({ type, text, setText }) => {
+const Input = ({ type, text, setText, disabled }) => {
   const [showPW, togglePW] = useState(false);
   String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -27,6 +27,7 @@ const Input = ({ type, text, setText }) => {
         style={styles.inputStyle}
         keyboardType={type === "phone" ? "number-pad" : null}
         maxLength={type === "phone" ? 10 : 30}
+        editable={!disabled}
       />
       {type === "password" || type === "Confirm Password" ? (
         <TouchableOpacity

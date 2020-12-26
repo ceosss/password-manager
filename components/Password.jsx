@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { passwordStrength } from "../helper/passwordStrength";
 import { decodePassword } from "../helper/encodeDecodePassword";
 import Indicator from "./Indicator";
 import colors from "../helper/colors";
+import ShowPassword from "./ShowPassword";
 
 const Password = ({ data }) => {
+  const refRBSheet = useRef();
   data.password = decodePassword(data.password);
   return (
     <View style={styles.password}>
@@ -14,13 +16,14 @@ const Password = ({ data }) => {
         <Indicator type={passwordStrength(data.password)} />
         <Text style={styles.website}>{data.website}</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => refRBSheet.current.open()}>
         <Ionicons
           name="md-arrow-forward"
           size={24}
           color={colors.neutralGray}
         />
       </TouchableOpacity>
+      <ShowPassword refRBSheet={refRBSheet} data={data} />
     </View>
   );
 };
