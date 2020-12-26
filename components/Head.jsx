@@ -9,13 +9,15 @@ const Head = ({ data, userEmail }) => {
   const [medium, setMedium] = useState(0);
   const [weak, setWeak] = useState(0);
   useEffect(() => {
-    const analytics = passwordAnalytics(data);
-    console.log(analytics);
-    setStrong(analytics.strong);
-    setMedium(analytics.medium);
-    setWeak(analytics.weak);
+    if (data) {
+      const analytics = passwordAnalytics(data);
+      console.log(analytics);
+      setStrong(analytics.strong);
+      setMedium(analytics.medium);
+      setWeak(analytics.weak);
+    }
   }, [data]);
-  return (
+  return data ? (
     <View style={styles.head}>
       <View style={styles.left}>
         <Text style={styles.bigText}>{data.length}</Text>
@@ -40,7 +42,7 @@ const Head = ({ data, userEmail }) => {
         </View>
       </View>
     </View>
-  );
+  ) : null;
 };
 
 export default Head;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ActivityIndicator } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from "react-native-simple-toast";
 import { firestore } from "../helper/firebase";
@@ -12,7 +12,9 @@ const AddPassword = ({ refRBSheet }) => {
   const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
+    setLoading(true);
     if (website.length < 3)
       return Toast.show(
         "Website must be at least 3 characters long., Try Again."
@@ -38,11 +40,16 @@ const AddPassword = ({ refRBSheet }) => {
         })
         .then(() => {
           Toast.show("Done!");
+          refRBSheet.current.close();
+          setLoading(false);
           setWebsite("");
           setEmail("");
           setPassword("");
         })
-        .catch((error) => Toast.show(error.message))
+        .catch((error) => {
+          setLoading(false);
+          Toast.show(error.message);
+        })
     );
   };
   return (
@@ -64,7 +71,15 @@ const AddPassword = ({ refRBSheet }) => {
       <Input type="website" text={website} setText={setWebsite} />
       <Input type="email" text={email} setText={setEmail} />
       <Input type="password" text={password} setText={setPassword} />
-      <Button onPress={handleSubmit}>Add</Button>
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color={colors.purple}
+          style={{ padding: 13 }}
+        />
+      ) : (
+        <Button onPress={handleSubmit}>Add</Button>
+      )}
     </RBSheet>
   );
 };
