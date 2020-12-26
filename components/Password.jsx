@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Indicator from "./Indicator";
-import { validatePassword } from "../helper/validations";
-import colors from "../helper/colors";
 import { passwordStrength } from "../helper/passwordStrength";
+import { decodePassword } from "../helper/encodeDecodePassword";
+import Indicator from "./Indicator";
+import colors from "../helper/colors";
 
 const Password = ({ data }) => {
+  data.password = decodePassword(data.password);
   return (
     <View style={styles.password}>
       <View style={[{ flexDirection: "row", alignItems: "center" }]}>

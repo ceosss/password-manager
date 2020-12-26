@@ -4,7 +4,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from "react-native-simple-toast";
 import firebase, { firestore } from "../helper/firebase";
 import { retrieveEmail } from "../helper/getSetEmail";
-import { encodePassword, decodePassword } from "../helper/encodeDecodePassword";
+import { encodePassword } from "../helper/encodeDecodePassword";
 import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
