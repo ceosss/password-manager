@@ -1,16 +1,21 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Clipboard } from "react-native";
+import Toast from "react-native-simple-toast";
 import RBSheet from "react-native-raw-bottom-sheet";
 import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
 
 const ShowPassword = ({ refRBSheet, data }) => {
+  const copyToClipboard = () => {
+    Clipboard.setString(data.password);
+    Toast.show("Copied!");
+  };
   return (
     <RBSheet
       ref={refRBSheet}
       closeOnDragDown={true}
-      height={260}
+      height={370}
       customStyles={{
         container: {
           alignItems: "center",
@@ -25,6 +30,8 @@ const ShowPassword = ({ refRBSheet, data }) => {
       <Input type="website" text={data.website} disabled={true} />
       <Input type="email" text={data.email} disabled={true} />
       <Input type="password" text={data.password} disabled={true} />
+      <Button onPress={copyToClipboard}>Copy Password</Button>
+      <Button>Delete Password</Button>
       {/* {loading ? (
         <ActivityIndicator
           size="large"
