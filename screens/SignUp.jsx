@@ -58,7 +58,7 @@ const SignIn = ({ navigation }) => {
             email,
             phone,
             password,
-            image: null,
+            profileImage: null,
             createdAt: new Date(),
           })
           .then(() => {

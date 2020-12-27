@@ -9,11 +9,13 @@ import Input from "./Input";
 import Button from "./Button";
 import { retrieveEmail } from "../helper/getSetEmail";
 import { validateName, validatePhone } from "../helper/validations";
+import UploadImage from "./UploadImage";
 
 const Profile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -27,6 +29,7 @@ const Profile = () => {
           console.log(data);
           setName(data.name);
           setPhone(data.phone);
+          setProfileImage(data.profileImage);
           setLoading(false);
         });
     });
@@ -74,7 +77,14 @@ const Profile = () => {
           </Ripple>
         </View>
         <View style={styles.userImage}>
-          <Image source={require("../assets/user.png")} style={styles.image} />
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <Image
+              source={require("../assets/user.png")}
+              style={styles.image}
+            />
+          )}
         </View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.email}>{email}</Text>
@@ -90,6 +100,7 @@ const Profile = () => {
         ) : (
           <Button onPress={update}>Update</Button>
         )}
+        <UploadImage email={email} />
       </View>
     </View>
   );
@@ -128,10 +139,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: colors.purple,
     borderWidth: 5,
+    overflow: "hidden",
   },
   image: {
-    width: 58,
-    height: 58,
+    width: 50,
+    height: 50,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
   },
   name: {
     fontSize: 18,
