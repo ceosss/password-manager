@@ -58,6 +58,7 @@ const SignIn = ({ navigation }) => {
             email,
             phone,
             password,
+            image: null,
             createdAt: new Date(),
           })
           .then(() => {
