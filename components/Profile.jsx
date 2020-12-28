@@ -72,8 +72,8 @@ const Profile = () => {
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={global.headerText}>Profile</Text>
-          <Ripple onPress={signOut}>
-            <Text style={styles.logout}>LOG-OUT</Text>
+          <Ripple onPress={signOut} style={styles.logout}>
+            <Text style={styles.logoutText}>LOG-OUT</Text>
           </Ripple>
         </View>
         <View style={styles.userImage}>
@@ -127,7 +127,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logout: {
-    color: "#ee5253",
+    backgroundColor: "#ee5253",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 3,
+  },
+  logoutText: {
+    // color: "#ee5253",
+    color: "#fff",
     fontFamily: "bold",
   },
   userImage: {
