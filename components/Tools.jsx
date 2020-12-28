@@ -108,11 +108,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: colors.gray,
+    backgroundColor: "#e3e6fe",
+    borderColor: colors.purple,
+    borderWidth: 1,
   },
   previewText: {
     fontSize: 22,
-    color: colors.darkGray,
+    color: colors.purple,
+    fontFamily: "bold",
   },
   length: { width: "100%", marginBottom: 4 },
   slider: {
@@ -120,7 +123,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.gray,
+    // backgroundColor: colors.gray,
+    borderColor: colors.gray,
+    borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -131,7 +136,9 @@ const styles = StyleSheet.create({
   },
   switch: {
     width: "100%",
-    backgroundColor: colors.gray,
+    // backgroundColor: colors.gray,
+    borderColor: colors.gray,
+    borderWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -152,7 +159,7 @@ export const SwitchButton = ({ value, onChange }) => {
     <Switch
       value={value}
       onValueChange={handleChange}
-      trackColor={{ false: colors.darkGray, true: "#aab3fd" }}
+      trackColor={{ false: colors.gray, true: "#aab3fd" }}
       thumbColor={value ? colors.purple : "#f4f3f4"}
     />
   );
