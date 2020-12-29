@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, ActivityIndicator, Clipboard } from "react-native";
 import { firestore } from "../helper/firebase";
-import { retrieveEmail } from "../helper/getSetEmail";
+import { encodePassword } from "../helper/encodeDecodePassword";
 import Toast from "react-native-simple-toast";
 import RBSheet from "react-native-raw-bottom-sheet";
 import colors from "../helper/colors";
@@ -10,7 +10,9 @@ import Input from "./Input";
 
 const ShowPassword = ({ refRBSheet, data, userEmail }) => {
   const [email, setEmail] = useState(data.email);
+  const [originalEmail, setOriginalEmail] = useState(data.email);
   const [password, setPassword] = useState(data.password);
+  const [originalPassword, setOriginalPassword] = useState(data.password);
   const [deleting, setDeleting] = useState(false);
   const [updating, setUpdating] = useState(false);
   const copyToClipboard = () => {
@@ -36,7 +38,7 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       .doc(userEmail)
       .collection("savedPasswords")
       .doc(data.id)
-      .update({ email, password })
+      .update({ email, password: encodePassword(password) })
       .then(() => {
         Toast.show("Update Successful!");
         setUpdating(false);
@@ -89,7 +91,12 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
           style={{ padding: 13 }}
         />
       ) : (
-        <Button onPress={updatePassword}>Update Password</Button>
+        <Button
+          onPress={updatePassword}
+          disabled={originalEmail === email && originalPassword === password}
+        >
+          Update Password
+        </Button>
       )}
       {deleting ? (
         <ActivityIndicator
