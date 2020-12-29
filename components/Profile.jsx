@@ -12,9 +12,11 @@ import { validateName, validatePhone } from "../helper/validations";
 import UploadImage from "./UploadImage";
 
 const Profile = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [originalName, setOriginalName] = useState("");
   const [phone, setPhone] = useState("");
+  const [originalPhone, setOriginalPhone] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -27,8 +29,9 @@ const Profile = () => {
         .doc(mail)
         .onSnapshot((doc) => {
           const data = doc.data();
-          // console.log(data);
+          setOriginalName(data.name);
           setName(data.name);
+          setOriginalPhone(data.phone);
           setPhone(data.phone);
           setProfileImage(data.profileImage);
           setLoading(false);
@@ -100,7 +103,10 @@ const Profile = () => {
             style={{ padding: 13 }}
           />
         ) : (
-          <Button onPress={update} disabled>
+          <Button
+            onPress={update}
+            disabled={originalName === name && originalPhone === phone}
+          >
             Update
           </Button>
         )}
