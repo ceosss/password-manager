@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 import colors from "../helper/colors";
 import Indicator from "./Indicator";
 import { passwordAnalytics } from "../helper/passwordAnalytics";
+import { firestore } from "../helper/firebase";
+import Toast from "react-native-simple-toast";
 
 const Head = ({ data, userEmail }) => {
   const [strong, setStrong] = useState(0);
   const [medium, setMedium] = useState(0);
   const [weak, setWeak] = useState(0);
+  const [name, setName] = useState("");
   console.log("Head", data);
   useEffect(() => {
     if (data) {
@@ -17,6 +20,12 @@ const Head = ({ data, userEmail }) => {
       setMedium(analytics.medium);
       setWeak(analytics.weak);
     }
+    firestore
+      .collection("users")
+      .doc(userEmail)
+      .get()
+      .then((doc) => setName(doc.data().name))
+      .catch((error) => Toast.show(error.message));
   }, [data]);
   return data ? (
     <View style={styles.head}>
@@ -25,7 +34,7 @@ const Head = ({ data, userEmail }) => {
         <Text style={styles.smallText}>Passwords</Text>
       </View>
       <View style={styles.right}>
-        <Text style={styles.username}>Hi {userEmail}!</Text>
+        <Text style={styles.username}>Hi {name.slice(0, 19)}!</Text>
         <View style={styles.analytics}>
           <Indicator type="strong" />
           <Text style={styles.bold}>{strong}</Text>

@@ -33,7 +33,20 @@ const Tools = () => {
       </View>
       <View style={styles.content}>
         <View style={styles.generated}>
-          <Text style={styles.smallText}>Generated Password</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.smallText}>Generated Password</Text>
+            <Text
+              style={{
+                fontFamily: "bolder",
+                fontSize: 10,
+                fontFamily: "light",
+                marginLeft: 5,
+                marginBottom: 3,
+              }}
+            >
+              Tap to copy
+            </Text>
+          </View>
           <Ripple style={styles.preview} onPress={copyToClipboard}>
             <Text style={styles.previewText}>{password}</Text>
           </Ripple>
