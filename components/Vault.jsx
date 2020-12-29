@@ -46,7 +46,9 @@ const Vault = () => {
           {vaultData && (
             <FlatList
               data={vaultData}
-              renderItem={({ item }) => <Password data={item} />}
+              renderItem={({ item }) => (
+                <Password data={item} userEmail={userEmail} />
+              )}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
             />

@@ -8,6 +8,7 @@ const Head = ({ data, userEmail }) => {
   const [strong, setStrong] = useState(0);
   const [medium, setMedium] = useState(0);
   const [weak, setWeak] = useState(0);
+  console.log("Head", data);
   useEffect(() => {
     if (data) {
       const analytics = passwordAnalytics(data);

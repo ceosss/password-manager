@@ -7,8 +7,9 @@ import Indicator from "./Indicator";
 import colors from "../helper/colors";
 import ShowPassword from "./ShowPassword";
 
-const Password = ({ data }) => {
+const Password = ({ data, userEmail }) => {
   const refRBSheet = useRef();
+  console.log("password", data);
   data.password = decodePassword(data.password);
   return (
     <View style={styles.password}>
@@ -23,7 +24,7 @@ const Password = ({ data }) => {
           color={colors.neutralGray}
         />
       </TouchableOpacity>
-      <ShowPassword refRBSheet={refRBSheet} data={data} />
+      <ShowPassword refRBSheet={refRBSheet} data={data} userEmail={userEmail} />
     </View>
   );
 };

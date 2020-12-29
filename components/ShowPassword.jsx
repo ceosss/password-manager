@@ -8,36 +8,66 @@ import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
 
-const ShowPassword = ({ refRBSheet, data }) => {
-  const [loading, setLoading] = useState(false);
+const ShowPassword = ({ refRBSheet, data, userEmail }) => {
+  const [email, setEmail] = useState(data.email);
+  const [password, setPassword] = useState(data.password);
+  const [deleting, setDeleting] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const copyToClipboard = () => {
     Clipboard.setString(data.password);
     Toast.show("Copied!");
   };
+  const validate = () => {
+    if (email.length < 3)
+      return Toast.show(
+        "Email must be at least 3 characters long., Try Again."
+      );
+    if (password.length < 3)
+      return Toast.show(
+        "Password must be at least 3 characters long., Try Again."
+      );
+    return 1;
+  };
+  const updatePassword = () => {
+    if (validate() !== 1) return;
+    setUpdating(true);
+    firestore
+      .collection("users")
+      .doc(userEmail)
+      .collection("savedPasswords")
+      .doc(data.id)
+      .update({ email, password })
+      .then(() => {
+        Toast.show("Update Successful!");
+        setUpdating(false);
+      })
+      .catch((error) => {
+        Toast.show(error.message);
+        setUpdating(false);
+      });
+  };
   const deletePassword = () => {
-    setLoading(true);
-    retrieveEmail().then((userEmail) => {
-      firestore
-        .collection("users")
-        .doc(userEmail)
-        .collection("savedPasswords")
-        .doc(data.id)
-        .delete()
-        .then(() => {
-          Toast.show("Deleted!");
-          setLoading(false);
-        })
-        .catch((error) => {
-          Toast.show(error.message);
-          setLoading(false);
-        });
-    });
+    setDeleting(true);
+    firestore
+      .collection("users")
+      .doc(userEmail)
+      .collection("savedPasswords")
+      .doc(data.id)
+      .delete()
+      .then(() => {
+        Toast.show("Deleted!");
+        setDeleting(false);
+      })
+      .catch((error) => {
+        Toast.show(error.message);
+        setDeleting(false);
+      });
   };
   return (
     <RBSheet
       ref={refRBSheet}
       closeOnDragDown={true}
-      height={370}
+      height={430}
       customStyles={{
         container: {
           alignItems: "center",
@@ -45,22 +75,33 @@ const ShowPassword = ({ refRBSheet, data }) => {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         },
-        draggableIcon: {},
       }}
     >
       <Text style={styles.showPassword}>Show Password</Text>
       <Input type="website" text={data.website} disabled={true} />
-      <Input type="email" text={data.email} disabled={true} />
-      <Input type="password" text={data.password} disabled={true} />
-      <Button onPress={copyToClipboard}>Copy Password</Button>
-      {loading ? (
+      <Input type="email" text={email} setText={setEmail} />
+      <Input type="password" text={password} setText={setPassword} />
+
+      {updating ? (
         <ActivityIndicator
           size="large"
           color={colors.purple}
           style={{ padding: 13 }}
         />
       ) : (
-        <Button onPress={deletePassword}>Delete Password</Button>
+        <Button onPress={updatePassword}>Update Password</Button>
+      )}
+      <Button onPress={copyToClipboard}>Copy Password</Button>
+      {deleting ? (
+        <ActivityIndicator
+          size="large"
+          color={colors.purple}
+          style={{ padding: 13 }}
+        />
+      ) : (
+        <Button onPress={deletePassword} type="delete">
+          Delete Password
+        </Button>
       )}
     </RBSheet>
   );

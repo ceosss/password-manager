@@ -15,7 +15,6 @@ const AddPassword = ({ refRBSheet }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
-    setLoading(true);
     if (website.length < 3)
       return Toast.show(
         "Website must be at least 3 characters long., Try Again."
@@ -29,6 +28,7 @@ const AddPassword = ({ refRBSheet }) => {
         "Password must be at least 3 characters long., Try Again."
       );
 
+    setLoading(true);
     retrieveEmail().then((userEmail) =>
       firestore
         .collection("users")

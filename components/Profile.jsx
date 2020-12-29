@@ -27,7 +27,7 @@ const Profile = () => {
         .doc(mail)
         .onSnapshot((doc) => {
           const data = doc.data();
-          console.log(data);
+          // console.log(data);
           setName(data.name);
           setPhone(data.phone);
           setProfileImage(data.profileImage);
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   logoutText: {
-    // color: "#ee5253",
     color: "#fff",
     fontFamily: "bold",
   },

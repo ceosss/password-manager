@@ -3,9 +3,15 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../helper/colors";
 import Ripple from "react-native-material-ripple";
 
-const Button = ({ children, onPress }) => {
+const Button = ({ children, onPress, type }) => {
   return (
-    <Ripple style={styles.button} onPress={onPress}>
+    <Ripple
+      style={[
+        styles.button,
+        type === "delete" ? { backgroundColor: "#ee5253" } : null,
+      ]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{children}</Text>
     </Ripple>
   );
