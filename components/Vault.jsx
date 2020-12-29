@@ -19,9 +19,10 @@ const Vault = () => {
   const [vaultData, setVaultData] = useState(null);
   const [userEmail, setUserEmail] = useState("");
   useEffect(() => {
+    let unsubscribe;
     retrieveEmail().then((userEmail) => {
       setUserEmail(userEmail);
-      firestore
+      unsubscribe = firestore
         .collection("users")
         .doc(userEmail)
         .collection("savedPasswords")
@@ -34,6 +35,7 @@ const Vault = () => {
           setVaultData(array);
         });
     });
+    return () => unsubscribe();
   }, []);
   return (
     <View style={styles.vault}>

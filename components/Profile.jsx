@@ -19,9 +19,10 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
+    let unsubscribe;
     retrieveEmail().then((mail) => {
       setEmail(mail);
-      firestore
+      unsubscribe = firestore
         .collection("users")
         .doc(mail)
         .onSnapshot((doc) => {
@@ -33,6 +34,7 @@ const Profile = () => {
           setLoading(false);
         });
     });
+    return () => unsubscribe();
   }, []);
   const validate = () => {
     if (!validateName(name))
