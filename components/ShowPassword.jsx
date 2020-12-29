@@ -81,7 +81,7 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       <Input type="website" text={data.website} disabled={true} />
       <Input type="email" text={email} setText={setEmail} />
       <Input type="password" text={password} setText={setPassword} />
-
+      <Button onPress={copyToClipboard}>Copy Password</Button>
       {updating ? (
         <ActivityIndicator
           size="large"
@@ -91,7 +91,6 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       ) : (
         <Button onPress={updatePassword}>Update Password</Button>
       )}
-      <Button onPress={copyToClipboard}>Copy Password</Button>
       {deleting ? (
         <ActivityIndicator
           size="large"

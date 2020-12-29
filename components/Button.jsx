@@ -3,13 +3,18 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../helper/colors";
 import Ripple from "react-native-material-ripple";
 
-const Button = ({ children, onPress, type }) => {
+const Button = ({ children, onPress, type, disabled }) => {
   return (
     <Ripple
       style={[
         styles.button,
-        type === "delete" ? { backgroundColor: "#ee5253" } : null,
+        type === "delete"
+          ? { backgroundColor: "#ee5253" }
+          : disabled
+          ? { backgroundColor: colors.neutralGray }
+          : null,
       ]}
+      disabled={disabled}
       onPress={onPress}
     >
       <Text style={styles.text}>{children}</Text>

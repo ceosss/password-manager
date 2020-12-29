@@ -100,7 +100,9 @@ const Profile = () => {
             style={{ padding: 13 }}
           />
         ) : (
-          <Button onPress={update}>Update</Button>
+          <Button onPress={update} disabled>
+            Update
+          </Button>
         )}
         <UploadImage email={email} />
       </View>
