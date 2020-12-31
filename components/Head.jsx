@@ -20,12 +20,14 @@ const Head = ({ data, userEmail }) => {
       setMedium(analytics.medium);
       setWeak(analytics.weak);
     }
-    firestore
-      .collection("users")
-      .doc(userEmail)
-      .get()
-      .then((doc) => setName(doc.data().name))
-      .catch((error) => Toast.show(error.message));
+    if (userEmail) {
+      firestore
+        .collection("users")
+        .doc(userEmail)
+        .get()
+        .then((doc) => setName(doc.data().name))
+        .catch((error) => Toast.show(error.message));
+    }
   }, [data]);
   return data ? (
     <View style={styles.head}>

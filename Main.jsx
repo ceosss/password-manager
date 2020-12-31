@@ -12,9 +12,9 @@ const Main = () => {
       else setCurUser(null);
     });
   }, []);
-  if (curUser) return <Home />;
-  <OnBoarding />;
-  return <AuthNavigation />;
+  // if (curUser) return <Home />;
+  return <OnBoarding />;
+  // return <AuthNavigation />;
 };
 
 export default Main;

@@ -7,6 +7,7 @@ import {
   Roboto_400Regular,
   Roboto_500Medium,
   Roboto_700Bold,
+  Roboto_300Light_Italic,
 } from "@expo-google-fonts/roboto";
 
 import Main from "./Main";
@@ -18,6 +19,7 @@ export default function App() {
     regular: Roboto_400Regular,
     bold: Roboto_500Medium,
     bolder: Roboto_700Bold,
+    italic: Roboto_300Light_Italic,
   });
   if (!fontsLoaded) return <AppLoading />;
   return <Main />;

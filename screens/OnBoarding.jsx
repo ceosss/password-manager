@@ -1,6 +1,7 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, Text, StyleSheet } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
+import colors from "../helper/colors";
 
 const OnBoarding = () => (
   <Onboarding
@@ -10,39 +11,63 @@ const OnBoarding = () => (
         backgroundColor: "#fff",
         image: (
           <Image
-            source={require("../assets/undraw_Note_list_re_r4u9.png")}
-            resizeMode="center"
+            source={require("../assets/onboarding1.png")}
+            // resizeMode="center"
           />
         ),
-        title: "Save Easily",
-        subtitle: "Save all your passwords securely at one place.",
+        title: <Text style={styles.title}>Save Easily</Text>,
+        subtitle: (
+          <Text style={styles.subtitle}>
+            Save all your passwords securely at one place.
+          </Text>
+        ),
       },
       {
         // backgroundColor: "#F9A826",
         backgroundColor: "#fff",
         image: (
           <Image
-            source={require("../assets/undraw_cloud_sync_2aph.png")}
-            resizeMode="center"
+            source={require("../assets/onboarding2.png")}
+            // resizeMode="center"
           />
         ),
-        title: "Easy Access",
-        subtitle: "Access all the securely saved passwords anytime.",
+        title: <Text style={styles.title}>Easy Access</Text>,
+        subtitle: (
+          <Text style={styles.subtitle}>
+            Access all the securely saved passwords anytime.
+          </Text>
+        ),
       },
       {
         // backgroundColor: "#33D9B2",
         backgroundColor: "#fff",
         image: (
           <Image
-            source={require("../assets/undraw_Security_on_ff2u.png")}
-            resizeMode="center"
+            source={require("../assets/onboarding3.png")}
+            // resizeMode="center"
           />
         ),
-        title: "Generate Passwords",
-        subtitle: "Generate highly secure custom passwords.",
+        title: <Text style={styles.title}>Generate Passwords</Text>,
+        subtitle: (
+          <Text style={styles.subtitle}>
+            Generate highly secure custom passwords.
+          </Text>
+        ),
       },
     ]}
   />
 );
 
 export default OnBoarding;
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontFamily: "bold",
+    color: colors.purple,
+  },
+  subtitle: {
+    fontSize: 16,
+    fontFamily: "italic",
+  },
+});
