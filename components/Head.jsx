@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, ToastAndroid, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import colors from "../helper/colors";
 import Indicator from "./Indicator";
 import { passwordAnalytics } from "../helper/passwordAnalytics";
@@ -29,10 +29,18 @@ const Head = ({ data, userEmail }) => {
         .catch((error) => Toast.show(error.message));
     }
   }, [data]);
-  return data ? (
+  return (
     <View style={styles.head}>
       <View style={styles.left}>
-        <Text style={styles.bigText}>{data.length}</Text>
+        {data ? (
+          <Text style={styles.bigText}>{data.length}</Text>
+        ) : (
+          <ActivityIndicator
+            size="large"
+            color="white"
+            style={{ padding: 13 }}
+          />
+        )}
         <Text style={styles.smallText}>Passwords</Text>
       </View>
       <View style={styles.right}>
@@ -54,7 +62,7 @@ const Head = ({ data, userEmail }) => {
         </View>
       </View>
     </View>
-  ) : null;
+  );
 };
 
 export default Head;
