@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../helper/colors";
@@ -43,7 +44,7 @@ const Vault = () => {
       <View style={styles.content}>
         <Text style={styles.saved}>SAVED PASSWORDS</Text>
         <View style={styles.password}>
-          {vaultData && (
+          {vaultData ? (
             <FlatList
               data={vaultData}
               renderItem={({ item }) => (
@@ -51,6 +52,12 @@ const Vault = () => {
               )}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <ActivityIndicator
+              size="large"
+              color={colors.purple}
+              style={{ padding: 13 }}
             />
           )}
         </View>
