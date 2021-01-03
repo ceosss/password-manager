@@ -38,7 +38,7 @@ const Head = ({ data, userEmail }) => {
           <ActivityIndicator
             size="large"
             color="white"
-            style={{ padding: 13 }}
+            style={{ padding: 20 }}
           />
         )}
         <Text style={styles.smallText}>Passwords</Text>

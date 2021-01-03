@@ -14,6 +14,7 @@ import Password from "./Password";
 import AddPassword from "./AddPassword";
 import { firestore } from "../helper/firebase";
 import { retrieveEmail } from "../helper/getSetEmail";
+import PasswordSkeleton from "./PasswordSkeleton";
 
 const Vault = () => {
   const refRBSheet = useRef();
@@ -54,11 +55,7 @@ const Vault = () => {
               showsVerticalScrollIndicator={false}
             />
           ) : (
-            <ActivityIndicator
-              size="large"
-              color={colors.purple}
-              style={{ padding: 13 }}
-            />
+            <PasswordSkeleton />
           )}
         </View>
       </View>
