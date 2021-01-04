@@ -58,7 +58,7 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       .delete()
       .then(() => {
         Toast.show("Deleted!");
-        setDeleting(false);
+        // setDeleting(false);
       })
       .catch((error) => {
         Toast.show(error.message);

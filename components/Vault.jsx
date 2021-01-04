@@ -15,6 +15,7 @@ import AddPassword from "./AddPassword";
 import { firestore } from "../helper/firebase";
 import { retrieveEmail } from "../helper/getSetEmail";
 import PasswordSkeleton from "./PasswordSkeleton";
+import Empty from "../assets/Empty";
 
 const Vault = () => {
   const refRBSheet = useRef();
@@ -45,7 +46,9 @@ const Vault = () => {
       <View style={styles.content}>
         <Text style={styles.saved}>SAVED PASSWORDS</Text>
         <View style={styles.password}>
-          {vaultData ? (
+          {vaultData === null ? (
+            <PasswordSkeleton />
+          ) : vaultData.length ? (
             <FlatList
               data={vaultData}
               renderItem={({ item }) => (
@@ -55,7 +58,7 @@ const Vault = () => {
               showsVerticalScrollIndicator={false}
             />
           ) : (
-            <PasswordSkeleton />
+            <Empty />
           )}
         </View>
       </View>
