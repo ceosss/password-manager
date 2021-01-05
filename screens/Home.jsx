@@ -63,7 +63,7 @@ const Home = () => {
           }}
         />
       </Tab.Navigator>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 };

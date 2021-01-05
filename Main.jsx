@@ -4,15 +4,14 @@ import Home from "./screens/Home";
 import { auth } from "./helper/firebase";
 import OnBoarding from "./screens/OnBoarding";
 import { getFirstTime, setFirstTime } from "./helper/getSetFirstTimeUser";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image, View, StyleSheet } from "react-native";
 
 const Main = () => {
   const [curUser, setCurUser] = useState(null);
   const [firstTimeUser, setFirstTimeUser] = useState(false);
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
     getFirstTime().then((value) => {
-      console.log(value);
-      // AsyncStorage.removeItem("first-time");
       if (value !== "no") {
         setFirstTime().then(() => setFirstTimeUser(true));
       } else {
@@ -23,11 +22,36 @@ const Main = () => {
       }
     });
   }, []);
-  if (firstTimeUser) return <OnBoarding setFirstTimeUser={setFirstTimeUser} />;
+  setTimeout(() => {
+    setLoader(false);
+  }, 3000);
+
+  if (loader)
+    return (
+      <View style={styles.shield}>
+        <Image
+          source={require("./assets/shield.gif")}
+          resizeMode="center"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </View>
+    );
   else {
-    if (curUser) return <Home />;
-    return <AuthNavigation />;
+    if (firstTimeUser)
+      return <OnBoarding setFirstTimeUser={setFirstTimeUser} />;
+    else {
+      if (curUser) return <Home />;
+      return <AuthNavigation />;
+    }
   }
 };
 
 export default Main;
+
+const styles = StyleSheet.create({
+  sheild: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
