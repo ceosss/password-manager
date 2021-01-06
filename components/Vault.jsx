@@ -5,7 +5,6 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import colors from "../helper/colors";

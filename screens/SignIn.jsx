@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,11 +19,13 @@ import Toast from "react-native-simple-toast";
 import { auth } from "../helper/firebase";
 import { validatePassword, ValidateEmail } from "../helper/validations";
 import { storeEmail } from "../helper/getSetEmail";
+import PasswordReset from "../components/PasswordReset";
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const forgotPasswordRef = useRef();
   const validate = () => {
     if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
     if (!validatePassword(password))
@@ -64,7 +66,10 @@ const SignIn = ({ navigation }) => {
       <View style={styles.card}>
         <Input type="email" text={email} setText={setEmail} />
         <Input type="password" text={password} setText={setPassword} />
-        <TouchableOpacity style={styles.forgot}>
+        <TouchableOpacity
+          style={styles.forgot}
+          onPress={() => forgotPasswordRef.current.open()}
+        >
           <Text style={styles.forgotText}>Forgot Password?</Text>
         </TouchableOpacity>
         {loading ? (
@@ -98,6 +103,8 @@ const SignIn = ({ navigation }) => {
           <Text style={global.link}> Sign up Now!</Text>
         </TouchableOpacity>
       </View>
+      <PasswordReset forgotPasswordRef={forgotPasswordRef} />
+
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
   );
