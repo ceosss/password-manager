@@ -81,8 +81,14 @@ const SignIn = ({ navigation }) => {
           <Text style={styles.separateText}>OR</Text>
           <View style={styles.line} />
         </View>
-        <SocialButton type="facebook" />
-        <SocialButton type="google" />
+        <SocialButton
+          type="facebook"
+          onPress={() => Toast.show("Coming Soon, Try Email and Password!")}
+        />
+        <SocialButton
+          type="google"
+          onPress={() => Toast.show("Coming Soon, Try Email and Password!")}
+        />
       </View>
       <View style={styles.signUp}>
         <Text style={{ color: colors.darkGray, fontFamily: "light" }}>
