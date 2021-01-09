@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -63,15 +62,9 @@ const Home = () => {
           }}
         />
       </Tab.Navigator>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
     </NavigationContainer>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});
-
-// <TouchableOpacity onPress={signOut}>
-//   <Text>LOG-OUT</Text>
-// </TouchableOpacity>
