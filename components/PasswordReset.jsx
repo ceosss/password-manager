@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, ActivityIndicator } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import colors from "../helper/colors";
 import Button from "./Button";
 import Input from "./Input";
@@ -12,18 +12,18 @@ const PasswordReset = ({ forgotPasswordRef }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
-    if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
+    if (!ValidateEmail(email)) return Toast("Invalid Email, Try Again.");
     setLoading(true);
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
-        Toast.show("Reset Link sent to your Email Id");
+        Toast("Reset Link sent to your Email Id");
         setEmail("");
         setLoading(false);
         forgotPasswordRef.current.close();
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };

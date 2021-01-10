@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, ActivityIndicator } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import firebase, { firestore } from "../helper/firebase";
 import { retrieveEmail } from "../helper/getSetEmail";
 import { encodePassword } from "../helper/encodeDecodePassword";
@@ -16,17 +16,11 @@ const AddPassword = ({ refRBSheet }) => {
   const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
     if (website.length < 3)
-      return Toast.show(
-        "Website must be at least 3 characters long., Try Again."
-      );
+      return Toast("Website must be at least 3 characters long., Try Again.");
     if (email.length < 3)
-      return Toast.show(
-        "Email must be at least 3 characters long., Try Again."
-      );
+      return Toast("Email must be at least 3 characters long., Try Again.");
     if (password.length < 3)
-      return Toast.show(
-        "Password must be at least 3 characters long., Try Again."
-      );
+      return Toast("Password must be at least 3 characters long., Try Again.");
 
     setLoading(true);
     retrieveEmail().then((userEmail) =>
@@ -41,7 +35,7 @@ const AddPassword = ({ refRBSheet }) => {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
-          Toast.show("Done!");
+          Toast("Done!");
           setLoading(false);
           refRBSheet.current.close();
           setWebsite("");
@@ -51,7 +45,7 @@ const AddPassword = ({ refRBSheet }) => {
         .catch((error) => {
           setLoading(false);
           console.log(error);
-          Toast.show(error.message);
+          Toast(error.message);
         })
     );
   };

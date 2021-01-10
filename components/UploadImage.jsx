@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase, { firestore } from "../helper/firebase";
 import { ActivityIndicator } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import Button from "./Button";
 import colors from "../helper/colors";
 
@@ -14,7 +14,7 @@ const UploadImage = ({ email }) => {
     //     status,
     //   } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     //   if (status !== "granted") {
-    //     Toast.show("Sorry, we need camera roll permissions to make this work!");
+    //     Toast("Sorry, we need camera roll permissions to make this work!");
     //   }
     // })();
   }, []);
@@ -40,7 +40,7 @@ const UploadImage = ({ email }) => {
         .delete()
         .then(() => uploadImage(uri))
         .catch((error) => {
-          Toast.show(error.message);
+          Toast(error.message);
           setLoading(false);
         });
     } else {
@@ -63,7 +63,7 @@ const UploadImage = ({ email }) => {
           .then((uri) => updateImageURLtoDatabase(uri));
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };
@@ -75,11 +75,11 @@ const UploadImage = ({ email }) => {
         profileImage: uri,
       })
       .then(() => {
-        Toast.show("Profile Photo Updated!");
+        Toast("Profile Photo Updated!");
         setLoading(false);
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };

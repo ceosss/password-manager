@@ -4,7 +4,7 @@ import colors from "../helper/colors";
 import Indicator from "./Indicator";
 import { passwordAnalytics } from "../helper/passwordAnalytics";
 import { firestore } from "../helper/firebase";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 
 const Head = ({ data, userEmail }) => {
   const [strong, setStrong] = useState(0);
@@ -26,7 +26,7 @@ const Head = ({ data, userEmail }) => {
         .doc(userEmail)
         .get()
         .then((doc) => setName(doc.data().name))
-        .catch((error) => Toast.show(error.message));
+        .catch((error) => Toast(error.message));
     }
   }, [data]);
   return (

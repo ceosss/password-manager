@@ -14,7 +14,7 @@ import Button from "../components/Button";
 import colors from "../helper/colors";
 import global from "../helper/styles";
 import Input from "../components/Input";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import { firestore, auth } from "../helper/firebase";
 import {
   validateName,
@@ -32,14 +32,13 @@ const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const validate = () => {
     if (!validateName(name))
-      return Toast.show("Name must contain atleast 6 characters");
-    if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
-    if (!validatePhone(phone))
-      return Toast.show("Invalid Phone Number, Try Again.");
+      return Toast("Name must contain atleast 6 characters");
+    if (!ValidateEmail(email)) return Toast("Invalid Email, Try Again.");
+    if (!validatePhone(phone)) return Toast("Invalid Phone Number, Try Again.");
     if (password !== confirmPassword)
-      return Toast.show("Passwords didn't match, Try Again.");
+      return Toast("Passwords didn't match, Try Again.");
     if (!validatePassword(password))
-      return Toast.show(
+      return Toast(
         "Password must contain at least 8 characters, at least one number and both lower and uppercase letters and special characters, Try Again."
       );
     return 1;
@@ -62,16 +61,16 @@ const SignIn = ({ navigation }) => {
             createdAt: new Date(),
           })
           .then(() => {
-            Toast.show("Sign up Successful");
+            Toast("Sign up Successful");
             // setLoading(false);
           })
           .catch((error) => {
-            Toast.show(error.message);
+            Toast(error.message);
             setLoading(false);
           });
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };

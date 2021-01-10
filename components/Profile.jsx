@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import { auth, firestore } from "../helper/firebase";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import global from "../helper/styles";
 import Ripple from "react-native-material-ripple";
 import colors from "../helper/colors";
@@ -41,9 +41,8 @@ const Profile = () => {
   }, []);
   const validate = () => {
     if (!validateName(name))
-      return Toast.show("Name must contain at least 6 characters");
-    if (!validatePhone(phone))
-      return Toast.show("Invalid Phone Number, Try Again.");
+      return Toast("Name must contain at least 6 characters");
+    if (!validatePhone(phone)) return Toast("Invalid Phone Number, Try Again.");
     return 1;
   };
   const update = () => {
@@ -58,19 +57,19 @@ const Profile = () => {
         phone,
       })
       .then(() => {
-        Toast.show("Updated!");
+        Toast("Updated!");
         setLoading(false);
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };
   const signOut = () => {
     auth
       .signOut()
-      .then(() => Toast.show("Log out"))
-      .catch((error) => Toast.show(error.message));
+      .then(() => Toast("Log out"))
+      .catch((error) => Toast(error.message));
   };
   return (
     <View style={styles.profile}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Switch, Clipboard } from "react-native";
 import Slider from "@react-native-community/slider";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import Ripple from "react-native-material-ripple";
 import Button from "../components/Button";
 import colors from "../helper/colors";
@@ -19,7 +19,7 @@ const Tools = () => {
   }, []);
   const copyToClipboard = () => {
     Clipboard.setString(password);
-    Toast.show("Copied!");
+    Toast("Copied!");
   };
   const handleClick = () => {
     setPassword(generatePassword(length, number, capital, symbol));

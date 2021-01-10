@@ -15,7 +15,7 @@ import SocialButton from "../components/SocialButton";
 import colors from "../helper/colors";
 import global from "../helper/styles";
 import Input from "../components/Input";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import { auth } from "../helper/firebase";
 import { validatePassword, ValidateEmail } from "../helper/validations";
 import { storeEmail } from "../helper/getSetEmail";
@@ -27,9 +27,9 @@ const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const forgotPasswordRef = useRef();
   const validate = () => {
-    if (!ValidateEmail(email)) return Toast.show("Invalid Email, Try Again.");
+    if (!ValidateEmail(email)) return Toast("Invalid Email, Try Again.");
     if (!validatePassword(password))
-      return Toast.show(
+      return Toast(
         "Password must contain at least 8 characters, at least one number and both lower and uppercase letters and special characters, Try Again."
       );
     return 1;
@@ -40,11 +40,11 @@ const SignIn = ({ navigation }) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        storeEmail(email).then(() => Toast.show("Sign in Successful"));
+        storeEmail(email).then(() => Toast("Sign in Successful"));
         // setLoading(false);
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setLoading(false);
       });
   };
@@ -88,11 +88,11 @@ const SignIn = ({ navigation }) => {
         </View>
         <SocialButton
           type="facebook"
-          onPress={() => Toast.show("Coming Soon, Try Email and Password!")}
+          onPress={() => Toast("Coming Soon, Try Email and Password!")}
         />
         <SocialButton
           type="google"
-          onPress={() => Toast.show("Coming Soon, Try Email and Password!")}
+          onPress={() => Toast("Coming Soon, Try Email and Password!")}
         />
       </View>
       <View style={styles.signUp}>

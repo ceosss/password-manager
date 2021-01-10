@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, ActivityIndicator, Clipboard } from "react-native";
 import { firestore } from "../helper/firebase";
 import { encodePassword } from "../helper/encodeDecodePassword";
-import Toast from "react-native-simple-toast";
+import Toast from "../helper/Toast";
 import RBSheet from "react-native-raw-bottom-sheet";
 import colors from "../helper/colors";
 import Button from "./Button";
@@ -17,17 +17,13 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
   const [updating, setUpdating] = useState(false);
   const copyToClipboard = () => {
     Clipboard.setString(data.password);
-    Toast.show("Copied!");
+    Toast("Copied!");
   };
   const validate = () => {
     if (email.length < 3)
-      return Toast.show(
-        "Email must be at least 3 characters long., Try Again."
-      );
+      return Toast("Email must be at least 3 characters long., Try Again.");
     if (password.length < 3)
-      return Toast.show(
-        "Password must be at least 3 characters long., Try Again."
-      );
+      return Toast("Password must be at least 3 characters long., Try Again.");
     return 1;
   };
   const updatePassword = () => {
@@ -40,11 +36,11 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       .doc(data.id)
       .update({ email, password: encodePassword(password) })
       .then(() => {
-        Toast.show("Update Successful!");
+        Toast("Update Successful!");
         setUpdating(false);
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setUpdating(false);
       });
   };
@@ -57,11 +53,11 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       .doc(data.id)
       .delete()
       .then(() => {
-        Toast.show("Deleted!");
+        Toast("Deleted!");
         // setDeleting(false);
       })
       .catch((error) => {
-        Toast.show(error.message);
+        Toast(error.message);
         setDeleting(false);
       });
   };
