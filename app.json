@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "Light",
+    "userInterfaceStyle": "light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -15,12 +15,12 @@
       "bundleIdentifier": "com.sss.password.manager",
       "buildNumber": "1",
       "infoPlist": {
-        "UIUserInterfaceStyle": "Light"
+        "UIUserInterfaceStyle": "light"
       }
     },
     "android": {
       "package": "com.sss.password.manager",
-      "userInterfaceStyle": "Light",
+      "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
