@@ -49,7 +49,7 @@ const Main = () => {
 export default Main;
 
 const styles = StyleSheet.create({
-  sheild: {
+  shield: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

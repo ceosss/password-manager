@@ -5,8 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-
+    "userInterfaceStyle": "Light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -14,17 +13,21 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.sss.password.manager",
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIUserInterfaceStyle": "Light"
+      }
     },
     "android": {
       "package": "com.sss.password.manager",
+      "userInterfaceStyle": "Light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }
