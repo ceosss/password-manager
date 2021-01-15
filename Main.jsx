@@ -37,12 +37,12 @@ const Main = () => {
       </View>
     );
   else {
-    if (firstTimeUser)
-      return <OnBoarding setFirstTimeUser={setFirstTimeUser} />;
-    else {
-      if (curUser) return <Home />;
-      return <AuthNavigation />;
-    }
+    // if (firstTimeUser)
+    // return <OnBoarding setFirstTimeUser={setFirstTimeUser} />;
+    // else {
+    if (curUser) return <Home />;
+    return <AuthNavigation />;
+    // }
   }
 };
 
