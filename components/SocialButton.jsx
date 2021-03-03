@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginVertical: 8,
     borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 1,
   },
   textHolder: {
     width: "85%",

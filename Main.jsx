@@ -21,7 +21,7 @@ const Main = () => {
         });
       }
     });
-  }, []);
+  }, [curUser]);
   setTimeout(() => {
     setLoader(false);
   }, 3000);

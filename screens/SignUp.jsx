@@ -143,6 +143,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     padding: 15,
     paddingVertical: 25,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 1,
   },
   signIn: {
     flexDirection: "row",
