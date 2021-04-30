@@ -48,17 +48,26 @@ const Head = ({ data, userEmail }) => {
         <View style={styles.analytics}>
           <Indicator type="strong" />
           <Text style={styles.bold}>{strong}</Text>
-          <Text style={styles.analyticsText}> Strong Passwords</Text>
+          <Text style={styles.analyticsText}>
+            {" "}
+            Strong Password{strong > 1 ? "s" : ""}
+          </Text>
         </View>
         <View style={styles.analytics}>
           <Indicator type="medium" />
           <Text style={styles.bold}>{medium}</Text>
-          <Text style={styles.analyticsText}> Medium Passwords</Text>
+          <Text style={styles.analyticsText}>
+            {" "}
+            Medium Password{medium > 1 ? "s" : ""}
+          </Text>
         </View>
         <View style={styles.analytics}>
           <Indicator type="weak" />
           <Text style={styles.bold}>{weak}</Text>
-          <Text style={styles.analyticsText}> Weak Passwords</Text>
+          <Text style={styles.analyticsText}>
+            {" "}
+            Weak Password{weak > 1 ? "s" : ""}
+          </Text>
         </View>
       </View>
     </View>
