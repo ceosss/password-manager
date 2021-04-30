@@ -15,6 +15,7 @@ const Password = ({ data, userEmail }) => {
     <View style={styles.password}>
       <View style={[{ flexDirection: "row", alignItems: "center" }]}>
         <Indicator type={passwordStrength(data.password)} />
+        <View style={{ width: 5 }} />
         <Text style={styles.website}>{data.website}</Text>
       </View>
       <TouchableOpacity onPress={() => refRBSheet.current.open()}>
