@@ -130,11 +130,3 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-
-export const data = {
-  total: 94,
-  strong: 82,
-  medium: 8,
-  weak: 4,
-  username: "Swaraj",
-};
