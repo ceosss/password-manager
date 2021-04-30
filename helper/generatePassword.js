@@ -2,7 +2,7 @@ const getCharset = (number, capital, symbol) => {
   let set = "abcdefghijklmnopqrstuvwxyz";
   if (number) set += "0123456789";
   if (capital) set += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  if (symbol) set += "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+  if (symbol) set += "!@#$%^&*";
   return set;
 };
 
