@@ -22,6 +22,7 @@ import {
   ValidateEmail,
   validatePhone,
 } from "../helper/validations";
+import { encodePassword } from "../helper/encodeDecodePassword";
 
 const SignIn = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -56,7 +57,7 @@ const SignIn = ({ navigation }) => {
             name,
             email,
             phone,
-            password,
+            password: encodePassword(password),
             profileImage: null,
             createdAt: new Date(),
           })
