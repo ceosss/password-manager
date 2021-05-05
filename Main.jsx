@@ -5,12 +5,14 @@ import { auth } from "./helper/firebase";
 import OnBoarding from "./screens/OnBoarding";
 import { isFirstTimeUser } from "./helper/getSetFirstTimeUser";
 import { Image, View, StyleSheet } from "react-native";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Main = () => {
   const [curUser, setCurUser] = useState(null);
   const [showOnboard, setShowOnboard] = useState(false);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
+    // AsyncStorage.removeItem("first-time");
     isFirstTimeUser().then((value) => {
       if (value == "yes") {
         setShowOnboard(true);
