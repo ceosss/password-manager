@@ -62,6 +62,16 @@ const SignIn = ({ navigation }) => {
           })
           .then(() => {
             Toast("Sign up Successful");
+            auth
+              .signInWithEmailAndPassword(email, password)
+              .then(() => {
+                storeEmail(email).then(() => Toast("Sign in Successful"));
+                // setLoading(false);
+              })
+              .catch((error) => {
+                Toast(error.message);
+                setLoading(false);
+              });
             // setLoading(false);
           })
           .catch((error) => {
