@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase, { firestore } from "../helper/firebase";
 import { ActivityIndicator } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import Toast from "../helper/Toast";
 import Button from "./Button";
 import colors from "../helper/colors";
@@ -9,14 +10,15 @@ import colors from "../helper/colors";
 const UploadImage = ({ email }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    // (async () => {
-    //   const {
-    //     status,
-    //   } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //   if (status !== "granted") {
-    //     Toast("Sorry, we need camera roll permissions to make this work!");
-    //   }
-    // })();
+    (async () => {
+      // const {
+      //   status,
+      // } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        Toast("Sorry, we need camera roll permissions to make this work!");
+      }
+    })();
   }, []);
 
   const pickImage = async () => {
