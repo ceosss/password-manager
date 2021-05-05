@@ -2,11 +2,13 @@ import React from "react";
 import { Image, Text, StyleSheet } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import colors from "../helper/colors";
-import Main from "../Main";
+import { notFirstTimeUser } from "../helper/getSetFirstTimeUser";
 
-const OnBoarding = ({ setFirstTimeUser }) => {
-  const done = () => {
-    setFirstTimeUser(false);
+const OnBoarding = ({ setShowOnboard }) => {
+  const done = async () => {
+    console.log("DONE");
+    await notFirstTimeUser();
+    setShowOnboard(false);
   };
   return (
     <Onboarding
@@ -61,6 +63,7 @@ const OnBoarding = ({ setFirstTimeUser }) => {
         },
       ]}
       onDone={done}
+      showSkip={false}
     />
   );
 };
