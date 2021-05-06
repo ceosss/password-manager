@@ -37,6 +37,8 @@ const ShowPassword = ({ refRBSheet, data, userEmail }) => {
       .update({ email, password: encodePassword(password) })
       .then(() => {
         Toast("Update Successful!");
+        setOriginalEmail(email);
+        setOriginalPassword(password);
         setUpdating(false);
       })
       .catch((error) => {
