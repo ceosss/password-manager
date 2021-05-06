@@ -21,10 +21,11 @@ const Main = () => {
   const [failed, setfailed] = useState(false);
   const [biotmetricError, setBiotmetricError] = useState("");
   const [loader, setLoader] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     // AsyncStorage.removeItem("first-time");
     startupChecks();
-  }, []);
+  }, [curUser]);
 
   const startupChecks = async () => {
     var compatible = await checkForBiomtricAuth();
@@ -43,10 +44,11 @@ const Main = () => {
         setShowOnboard(false);
         auth.onAuthStateChanged(async (user) => {
           if (user) {
-            if (compatible && records) {
+            if (compatible && records && !authenticated) {
               const result = await handleBiometricAuth();
 
               if (result.success) {
+                setAuthenticated(true);
                 setCurUser(user);
                 setLoader(false);
               } else {
