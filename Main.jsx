@@ -10,6 +10,7 @@ import {
   checkForBiometricRecords,
   handleBiometricAuth,
 } from "./helper/biometricAuth";
+import BiometricFailedScreen from "./components/BiometricFailedScreen";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Main = () => {
@@ -17,6 +18,8 @@ const Main = () => {
   const [showOnboard, setShowOnboard] = useState(false);
   const [compatible, setCompatible] = useState(false);
   const [records, setRecords] = useState(false);
+  const [failed, setfailed] = useState(false);
+  const [biotmetricError, setBiotmetricError] = useState("");
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     // AsyncStorage.removeItem("first-time");
@@ -40,17 +43,15 @@ const Main = () => {
         setShowOnboard(false);
         auth.onAuthStateChanged(async (user) => {
           if (user) {
-            console.log("USER", user != null);
-            console.log("BIO", compatible && records);
-
             if (compatible && records) {
               const result = await handleBiometricAuth();
 
-              if (result) {
+              if (result.success) {
                 setCurUser(user);
                 setLoader(false);
-                setCompatible(false);
-                setRecords(false);
+              } else {
+                setBiotmetricError(result.error);
+                setfailed(true);
               }
             } else {
               setCurUser(user);
@@ -65,11 +66,9 @@ const Main = () => {
     });
   };
 
-  // setTimeout(() => {
-  //   setLoader(false);
-  // }, 3000);
-
-  if (loader) {
+  if (failed) {
+    return <BiometricFailedScreen biotmetricError={biotmetricError} />;
+  } else if (loader) {
     return (
       <View style={styles.shield}>
         <Image
