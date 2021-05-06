@@ -6,7 +6,6 @@ import { notFirstTimeUser } from "../helper/getSetFirstTimeUser";
 
 const OnBoarding = ({ setShowOnboard }) => {
   const done = async () => {
-    console.log("DONE");
     await notFirstTimeUser();
     setShowOnboard(false);
   };

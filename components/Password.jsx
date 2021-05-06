@@ -9,7 +9,6 @@ import ShowPassword from "./ShowPassword";
 
 const Password = ({ data, userEmail }) => {
   const refRBSheet = useRef();
-  console.log("password", data);
   data.password = decodePassword(data.password);
   return (
     <View style={styles.password}>
