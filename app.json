@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": ["MEDIA_LIBRARY"]
+      "permissions": ["MEDIA_LIBRARY", "USE_BIOMETRIC", "USE_FINGERPRINT"]
     },
     "web": {
       "favicon": "./assets/icon.png"

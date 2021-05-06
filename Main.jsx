@@ -5,31 +5,71 @@ import { auth } from "./helper/firebase";
 import OnBoarding from "./screens/OnBoarding";
 import { isFirstTimeUser } from "./helper/getSetFirstTimeUser";
 import { Image, View, StyleSheet } from "react-native";
+import {
+  checkForBiomtricAuth,
+  checkForBiometricRecords,
+  handleBiometricAuth,
+} from "./helper/biometricAuth";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Main = () => {
   const [curUser, setCurUser] = useState(null);
   const [showOnboard, setShowOnboard] = useState(false);
+  const [compatible, setCompatible] = useState(false);
+  const [records, setRecords] = useState(false);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     // AsyncStorage.removeItem("first-time");
+    startupChecks();
+  }, []);
+
+  const startupChecks = async () => {
+    var compatible = await checkForBiomtricAuth();
+    if (compatible) {
+      setCompatible(true);
+      var records = await checkForBiometricRecords();
+      if (records) {
+        setRecords(true);
+      }
+    }
     isFirstTimeUser().then((value) => {
       if (value == "yes") {
+        setLoader(false);
         setShowOnboard(true);
       } else {
         setShowOnboard(false);
-        auth.onAuthStateChanged((user) => {
-          if (user) setCurUser(user);
-          else setCurUser(null);
+        auth.onAuthStateChanged(async (user) => {
+          if (user) {
+            console.log("USER", user != null);
+            console.log("BIO", compatible && records);
+
+            if (compatible && records) {
+              const result = await handleBiometricAuth();
+
+              if (result) {
+                setCurUser(user);
+                setLoader(false);
+                setCompatible(false);
+                setRecords(false);
+              }
+            } else {
+              setCurUser(user);
+              setLoader(false);
+            }
+          } else {
+            setCurUser(null);
+            setLoader(false);
+          }
         });
       }
     });
-  }, [curUser]);
-  setTimeout(() => {
-    setLoader(false);
-  }, 3000);
+  };
 
-  if (loader)
+  // setTimeout(() => {
+  //   setLoader(false);
+  // }, 3000);
+
+  if (loader) {
     return (
       <View style={styles.shield}>
         <Image
@@ -39,7 +79,7 @@ const Main = () => {
         />
       </View>
     );
-  else {
+  } else {
     if (showOnboard) return <OnBoarding setShowOnboard={setShowOnboard} />;
     else {
       if (curUser) return <Home />;
