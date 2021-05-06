@@ -109,7 +109,7 @@ const Profile = () => {
             Update
           </Button>
         )}
-        <UploadImage email={email} />
+        {/* <UploadImage email={email} /> */}
       </View>
     </View>
   );
