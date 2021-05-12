@@ -1,6 +1,6 @@
 ## Password Manager Mobile App
 
-Download the app from Google Play Store: 
+Download the app from Google Play Store: http://bit.ly/ssspass
 
 Password manager is an app to manage your password and a password generator that locks your passwords and personal information in a secure vault. You can retrieve your password anytime, anywhere.
 
